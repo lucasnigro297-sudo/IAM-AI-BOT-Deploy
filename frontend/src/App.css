@@ -1,0 +1,186 @@
+/* Reset básico */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+
+/* Fondo general */
+.app-root {
+  min-height: 100vh;
+  background: #0d1117;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #111827;
+  color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid #1f2937;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+.logo {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #60a5fa, #34d399);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #0b1220; font-size: 14px; font-weight: 900;
+}
+.session-pill {
+  font-size: 12px;
+  color: #9ca3af;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #0b1220;
+  border: 1px solid #1f2937;
+}
+
+/* Contenedor padre del chat: centrado vertical y horizontal */
+.chat-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;   /* centrado horizontal */
+  align-items: center;       /* centrado vertical */
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Contenedor intermedio para ocupar todo el ancho y alto */
+.chat-center {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+/* Contenedor principal del chat */
+.cs-main-container {
+  width: 100% !important;
+  height: calc(100vh - 64px) !important; /* ocupa toda la altura menos el header */
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  margin: 0 auto !important;
+}
+
+/* Lista de mensajes */
+.cs-message-list {
+  --cs-message-list-background: #ffffff;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Fuerza centrado del chat interno */
+.cs-chat-container {
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+/* Burbujas: ENTRANTES */
+.cs-message--incoming .cs-message__content {
+  background: #e8f2ff !important;
+  color: #0b1a33 !important;
+  border: 1px solid #cfe6ff;
+  border-radius: 14px !important;
+}
+
+/* Burbujas: SALIENTES */
+.cs-message--outgoing .cs-message__content {
+  background: #d9f8e7 !important;
+  color: #082b1f !important;
+  border: 1px solid #b6f1d4;
+  border-radius: 14px !important;
+}
+
+/* Hora */
+.cs-message__footer {
+  color: #6b7280 !important;
+  font-size: 11px !important;
+}
+
+/* Avatares */
+.avatar img, .cs-avatar img {
+  box-shadow: 0 2px 6px rgba(0,0,0,.15);
+}
+
+/* Input */
+.cs-message-input {
+  border-top: 1px solid #eef2f7 !important;
+  background: #f8fafc !important;
+}
+.cs-message-input__content-editor-wrapper {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 10px !important;
+}
+.cs-message-input__content-editor {
+  color: #111827 !important;
+}
+.cs-button--send {
+  background: #3b82f6 !important;
+}
+.cs-button--send:hover {
+  background: #2563eb !important;
+}
+
+/* Error banner */
+.error-banner {
+  width: min(100%, 960px);
+  margin: 0 0 12px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: #ffecec;
+  background: #ef4444;
+  border: 1px solid #dc2626;
+}
+
+/* Padre que ocupa la pantalla y centra */
+.chat-wrapper{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;          /* centrado vertical también */
+  padding: 20px;
+  width: 100%;
+}
+
+/* “Card” del chat: SIEMPRE visible, centrado y a pantalla completa */
+.chat-card{
+  width: min(1080px, 100%);          /* ancho max del panel */
+  height: calc(100vh - 96px);        /* toda la altura menos el header */
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: 0 auto;                    /* centrado horizontal garantizado */
+}
+
+/* Hacemos que el MainContainer ocupe todo el "card" */
+.cs-main-as-card{
+  width: 100% !important;
+  height: 100% !important;
+  box-shadow: none !important;       /* ya lo tiene el .chat-card */
+  border-radius: 0 !important;
+}
+
+/* Fondo de la lista blanco (por si el kit lo cambia) */
+.cs-message-list{
+  --cs-message-list-background: #ffffff;
+  background: #ffffff;
+}
+
+/* Resto de tus estilos puede quedar igual… */

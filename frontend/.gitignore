@@ -1,0 +1,22 @@
+# Credenciales y configuraciones privadas
+.env
+*.pkl
+
+# Carpetas de dependencias
+node_modules/
+venv/
+
+# Archivos de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Archivos temporales o de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de logs
+*.log
+
+# Archivos de compilación / build
+frontend/dist/

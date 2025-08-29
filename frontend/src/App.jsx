@@ -1,8 +1,7 @@
 // src/App.jsx
 import { useEffect, useRef, useState } from "react";
-import { useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
-const id = crypto.randomUUID();
+
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
@@ -11,32 +10,30 @@ import {
   Message,
   MessageInput,
   TypingIndicator,
-  Avatar
+  Avatar,
 } from "@chatscope/chat-ui-kit-react";
 
 import "./App.css";
 
-const API = import.meta.env.VITE_API_BASE;  // 👈 se inyecta en build
+// 👇 Usamos siempre la misma var para el backend
+const API_BASE = import.meta.env.VITE_API_BASE; // p.ej. https://iam-ai-bot-meli.fly.dev
 
-const r = await fetch(`${API}/preguntar`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ texto, sesion_id: "frontend" })
-});
-
-const BOT_AVATAR  = "https://img.icons8.com/ios-filled/50/robot-2.png";
-const USER_AVATAR = "https://img.icons8.com/fluency/48/user-male-circle.png";
+const BOT_AVATAR =
+  "https://img.icons8.com/ios-filled/50/robot-2.png";
+const USER_AVATAR =
+  "https://img.icons8.com/fluency/48/user-male-circle.png";
 
 const nowISO = () => new Date().toISOString();
+
 const INITIAL_GREETING = {
   id: uuidv4(),
   message: "¡Hola! Soy el Bot IAM Meli. ¿En qué puedo ayudarte?",
   sender: "bot",
-  createdAt: nowISO()
+  createdAt: nowISO(),
 };
 
 export default function App() {
-  // Arrancamos SIEMPRE con el saludo centrado
+  // Mensajes + estado de escritura
   const [messages, setMessages] = useState([INITIAL_GREETING]);
   const [typing, setTyping] = useState(false);
   const [error, setError] = useState("");
@@ -50,13 +47,13 @@ export default function App() {
     if (!existing) sessionStorage.setItem("session_id", id);
     setSessionId(id);
 
-    // limpiamos historial viejo del navegador
+    // limpiamos historial viejo del navegador (si lo hubiese)
     sessionStorage.removeItem("chat_history");
   }, []);
 
   // autoscroll
   useEffect(() => {
-    listRef.current?.scrollToBottom("auto");
+    listRef.current?.scrollToBottom?.("auto");
   }, [messages]);
 
   const handleSend = async (text) => {
@@ -68,7 +65,7 @@ export default function App() {
       id: uuidv4(),
       message: clean,
       sender: "user",
-      createdAt: nowISO()
+      createdAt: nowISO(),
     };
     setMessages((prev) => [...prev, userMsg]);
     setTyping(true);
@@ -77,7 +74,7 @@ export default function App() {
       const res = await fetch(`${API_BASE}/preguntar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ texto: clean, sesion_id: sessionId })
+        body: JSON.stringify({ texto: clean, sesion_id: sessionId }),
       });
 
       if (!res.ok) {
@@ -90,12 +87,17 @@ export default function App() {
 
       setMessages((prev) => [
         ...prev,
-        { id: uuidv4(), message: botText, sender: "bot", createdAt: nowISO() }
+        {
+          id: uuidv4(),
+          message: botText,
+          sender: "bot",
+          createdAt: nowISO(),
+        },
       ]);
     } catch (e) {
       console.error(e);
       setError(
-        "No pude contactar al servidor. Verificá que el backend esté ejecutándose en http://localhost:8000."
+        "No pude contactar al servidor. Verificá que el backend esté disponible."
       );
       setMessages((prev) => [
         ...prev,
@@ -103,8 +105,8 @@ export default function App() {
           id: uuidv4(),
           message: "⚠️ Error al contactar al bot.",
           sender: "bot",
-          createdAt: nowISO()
-        }
+          createdAt: nowISO(),
+        },
       ]);
     } finally {
       setTyping(false);
@@ -118,19 +120,25 @@ export default function App() {
           <span className="logo">IAM</span>
           Bot IAM Meli
         </div>
-        <div className="session-pill">Sesión: {sessionId.slice(0, 8)}…</div>
+        {sessionId && (
+          <div className="session-pill">Sesión: {sessionId.slice(0, 8)}…</div>
+        )}
       </header>
 
       {/* Padre que centra todo */}
       <div className="chat-wrapper">
-      <div className="chat-card">          {/* <= NUEVO CONTENEDOR CENTRADO */}
+        <div className="chat-card">
           {error && <div className="error-banner">{error}</div>}
 
           <MainContainer>
             <ChatContainer>
               <MessageList
                 ref={listRef}
-                typingIndicator={typing && <TypingIndicator content="El bot está escribiendo…" />}
+                typingIndicator={
+                  typing && (
+                    <TypingIndicator content="El bot está escribiendo…" />
+                  )
+                }
               >
                 {messages.map((m) => (
                   <Message
@@ -138,7 +146,7 @@ export default function App() {
                     model={{
                       message: m.message,
                       sender: m.sender === "bot" ? "Bot IAM" : "Vos",
-                      direction: m.sender === "bot" ? "incoming" : "outgoing"
+                      direction: m.sender === "bot" ? "incoming" : "outgoing",
                     }}
                   >
                     <Avatar
@@ -148,7 +156,10 @@ export default function App() {
                       size="md"
                     />
                     <Message.Footer>
-                      {new Date(m.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                      {new Date(m.createdAt).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
                     </Message.Footer>
                   </Message>
                 ))}
@@ -164,11 +175,8 @@ export default function App() {
               />
             </ChatContainer>
           </MainContainer>
-         
         </div>
       </div>
-  </div>
-  
+    </div>
   );
-
 }

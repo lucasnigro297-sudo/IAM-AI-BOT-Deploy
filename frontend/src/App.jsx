@@ -116,13 +116,13 @@ export default function App() {
   return (
     <div className="app-root">
       <header className="app-header">
-        <div className="brand">
-          <span className="logo">BOT</span>
-          Security
-        </div>
-        {sessionId && (
-          <div className="session-pill">Sesión: {sessionId.slice(0, 8)}…</div>
-        )}
+  <div className="brand">
+    <span className="logo-circle">🤖</span>
+    <span className="brand-text">BOT Security</span>
+  </div>
+  {sessionId && (
+    <div className="session-pill">Sesión: {sessionId.slice(0, 8)}…</div>
+  )}
       </header>
 
       {/* Padre que centra todo */}

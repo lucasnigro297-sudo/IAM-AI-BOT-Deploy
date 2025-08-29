@@ -184,3 +184,21 @@ html, body, #root { height: 100%; margin: 0; }
 }
 
 /* Resto de tus estilos puede quedar igual… */
+
+.logo-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #3b82f6; /* azul */
+  color: white;
+  font-size: 16px;
+}
+
+.brand-text {
+  font-weight: 600;
+  font-size: 16px;
+  color: #f9fafb;
+}

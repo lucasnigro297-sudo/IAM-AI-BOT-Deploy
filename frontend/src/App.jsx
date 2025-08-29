@@ -1,7 +1,8 @@
 // src/App.jsx
 import { useEffect, useRef, useState } from "react";
+import { useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
-
+const id = crypto.randomUUID();
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
@@ -12,9 +13,16 @@ import {
   TypingIndicator,
   Avatar
 } from "@chatscope/chat-ui-kit-react";
+
 import "./App.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+const API = import.meta.env.VITE_API_BASE;  // 👈 se inyecta en build
+
+const r = await fetch(`${API}/preguntar`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ texto, sesion_id: "frontend" })
+});
 
 const BOT_AVATAR  = "https://img.icons8.com/ios-filled/50/robot-2.png";
 const USER_AVATAR = "https://img.icons8.com/fluency/48/user-male-circle.png";
@@ -156,8 +164,11 @@ export default function App() {
               />
             </ChatContainer>
           </MainContainer>
+         
         </div>
       </div>
   </div>
+  
   );
+
 }

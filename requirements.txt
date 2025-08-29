@@ -6,3 +6,4 @@ faiss-cpu
 langchain-community
 requests
 numpy
+python-dotenv

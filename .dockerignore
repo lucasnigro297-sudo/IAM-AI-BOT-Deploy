@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+.dist/
+.env
+hf_cache/
+.data/
+.git/
+frontend/node_modules/
+frontend/dist/

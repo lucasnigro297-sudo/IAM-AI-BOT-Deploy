@@ -95,6 +95,7 @@ http://localhost:5173
 
 ![alt text](image-7.png)
 
+
 ### Resultados:
 - **Precisión**: Responde correctamente en base a los documentos cargados.
 - **Velocidad**: Promedio < 5 segundos por respuesta en entorno local.
@@ -121,7 +122,14 @@ http://localhost:5173
 
 ---
 
+## 📊 Documentación técnica
+- [Arquitectura general](docs/arquitectura.md)
+- [Flujo de RAG](docs/flujo-rag.md)
+- [Secuencia de un turno de chat](docs/secuencia-chat.md)
+- [Componentes backend](./componentes.md) <!-- opcional -->
+- [Despliegue (opcional)](docs/despliegue.md)
+
+---
+
 ## 👨‍💻 Autor
 Desarrollado por Lucas Ivan Nigro como parte de **MeLi Challenge**.
-
-

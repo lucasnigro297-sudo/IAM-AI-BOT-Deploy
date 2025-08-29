@@ -18,8 +18,8 @@ import "./App.css";
 // 👇 Usamos siempre la misma var para el backend
 const API_BASE = import.meta.env.VITE_API_BASE; // p.ej. https://iam-ai-bot-meli.fly.dev
 
-const BOT_AVATAR =
-  "https://img.icons8.com/ios-filled/50/robot-2.png";
+// Avatar del bot (ícono simpático de robot azul)
+const BOT_AVATAR = "/robot-3d-icon.png";
 const USER_AVATAR =
   "https://img.icons8.com/fluency/48/user-male-circle.png";
 
@@ -27,7 +27,7 @@ const nowISO = () => new Date().toISOString();
 
 const INITIAL_GREETING = {
   id: uuidv4(),
-  message: "¡Hola! Soy el Bot IAM Meli. ¿En qué puedo ayudarte?",
+  message: "¡Hola! Soy el Bot Security. ¿En qué puedo ayudarte?",
   sender: "bot",
   createdAt: nowISO(),
 };
@@ -117,8 +117,8 @@ export default function App() {
     <div className="app-root">
       <header className="app-header">
         <div className="brand">
-          <span className="logo">IAM</span>
-          Bot IAM Meli
+          <span className="logo">BOT</span>
+          Security
         </div>
         {sessionId && (
           <div className="session-pill">Sesión: {sessionId.slice(0, 8)}…</div>

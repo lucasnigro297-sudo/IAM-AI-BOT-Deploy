@@ -13,16 +13,25 @@ from bot.qa_engine import responder  # tu función de RAG
 
 app = FastAPI(title="IAM Bot API", version="1.0.0")
 
-# CORS
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "*")
-allow_origins = [o.strip() for o in ALLOWED_ORIGINS.split(",")] if ALLOWED_ORIGINS else ["*"]
+
+# CORS (seguro en prod)
+raw_origins = os.getenv("ALLOWED_ORIGINS", "").strip()
+
+if raw_origins in ("", "*"):
+    # Desarrollo: permite todos los orígenes
+    allowed_origins = ["*"]
+else:
+    # Producción: lista de dominios permitidos separados por coma
+    allowed_origins = [o.strip() for o in raw_origins.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allow_origins,
+    allow_origins=allowed_origins,   # ["*"] o ["https://front.vercel.app", ...]
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # Montar solo si existen (evita RuntimeError si faltan carpetas)
 if os.path.isdir("templates"):

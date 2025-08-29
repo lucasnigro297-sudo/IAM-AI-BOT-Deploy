@@ -5,7 +5,7 @@ html, body, #root { height: 100%; margin: 0; }
 /* Fondo general */
 .app-root {
   min-height: 100vh;
-  background: #0d1117;
+  background: #c7c7c7;
   display: flex;
   flex-direction: column;
 }

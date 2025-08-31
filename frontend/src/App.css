@@ -146,16 +146,22 @@ html, body, #root { height: 100%; margin: 0; }
   border: 1px solid #dc2626;
 }
 
-/* Padre que ocupa la pantalla y centra */
-.chat-wrapper{
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;          /* centrado vertical también */
-  padding: 20px;
-  width: 100%;
+:root { --header-h: 64px; --gutter: 16px; }  /* borde lateral */
+
+.chat-wrapper{ padding: var(--gutter) !important; }
+
+.chat-card{
+  width: clamp(1080px, 95vw, 2400px) !important; /* ↑ subí 1440 a 1600 si querés más */
+  height: calc(100vh - var(--header-h) - var(--gutter)*2) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35) !important;
+  margin: 0 auto !important;
 }
 
+.cs-main-container{
+  width: 100% !important;
+  height: 100% !important;
+}
 /* “Card” del chat: SIEMPRE visible, centrado y a pantalla completa */
 .chat-card{
   width: min(1080px, 100%);          /* ancho max del panel */
@@ -202,3 +208,21 @@ html, body, #root { height: 100%; margin: 0; }
   font-size: 16px;
   color: #f9fafb;
 }
+
+
+.reset-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: 10px;
+}
+
+.reset-btn:hover {
+  background: #1e40af;
+}
+
